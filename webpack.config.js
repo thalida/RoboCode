@@ -37,26 +37,28 @@ var common = {
                 loader: "expose?angular"
             },
             {
+                test: /\.js?$/,
+                exclude: /(node_modules)/,
+                loaders: ['ng-annotate', 'babel-loader?presets[]=es2015']
+            },
+            {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!resolve-url-loader!sass-loader?sourceMap")
             },
             {
                 test: /\.html$/,
-                loader: 'ngtemplate?relativeTo=' + APP + '/!html'
+                exclude: /node_modules/,
+                loader: 'html-loader'
             },
             {
                 test: /\.(woff|woff2|ttf|eot|svg|png|gif|jpg|jpeg|wav|mp3)(\?]?.*)?$/,
                 loader: 'file-loader?name=[path][name].[hash].[ext]'
-            },
-            {
-                test: /\.(json)(\?]?.*)?$/,
-                loader: 'file-loader?name=[path][name].[ext]'
             }
         ]
     },
     resolve: {
         root: APP,
-        extensions: ["", ".webpack.js", ".web.js", ".js", ".coffee"]
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"]
     },
     plugins: [
         new webpack.DefinePlugin({

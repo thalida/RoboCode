@@ -31,24 +31,28 @@ var camelCase = function( str ){
     });
 };
 
+var pascalCase = function( str ){
+    return capsFirstChar( camelCase(str) );
+};
+
 var create = {
     config: {
         appName: 'app',
         view: {
             folder: 'views',
-            demoDir: '__builder/views/__example'
+            demoDir: '__builder/views/__example-structure__'
         },
         component: {
             folder: 'components',
-            demoDir: '__builder/components/__exampleComponent'
+            demoDir: '__builder/components/__example-component__'
         },
         directive: {
             folder: 'components',
-            demoDir: '__builder/components/__exampleDirective'
+            demoDir: '__builder/components/__example-directive__'
         },
         service: {
             folder: 'services',
-            demoDir: '__builder/services/__example'
+            demoDir: '__builder/services/__example-structure__'
         }
     },
 
@@ -93,22 +97,23 @@ var create = {
                 gulp.src( origPath + '/**/*')
                     .pipe(modify({
                         fileModifier: function(file, contents) {
-                            contents = replaceAll(contents, '{{appname}}', appName);
-                            contents = replaceAll(contents, '{{appName}}', camelCase( appName ));
-                            contents = replaceAll(contents, '{{Appname}}', capsFirstChar( appName ));
+                            contents = replaceAll(contents, '__app-name__', appName);
+                            contents = replaceAll(contents, '__App-name__', capsFirstChar( appName ));
+                            contents = replaceAll(contents, '__appName__', camelCase( appName ));
+                            contents = replaceAll(contents, '__AppName__', pascalCase( appName ));
 
-                            contents = replaceAll(contents, '__exampleCamelCase', camelCase( name ));
-                            contents = replaceAll(contents, '__ExampleCamelCase', capsFirstChar(camelCase( name )));
+                            contents = replaceAll(contents, '__example-structure__', name);
+                            contents = replaceAll(contents, '__Example-structure__', capsFirstChar( name ));
+                            contents = replaceAll(contents, '__exampleStructure__', camelCase( name ));
+                            contents = replaceAll(contents, '__ExampleStructure__', pascalCase( name ));
 
-                            contents = replaceAll(contents, '__example', name);
-                            contents = replaceAll(contents, '__Example', capsFirstChar( name ));
                             return contents;
                         }
                     }))
                     .pipe(rename(function( path ){
-                        path.basename = replaceAll(path.basename, '__exampleDirective', name);
-                        path.basename = replaceAll(path.basename, '__exampleComponent', name);
-                        path.basename = replaceAll(path.basename, '__example', name);
+                        path.basename = replaceAll(path.basename, '__example-directive__', name);
+                        path.basename = replaceAll(path.basename, '__example-component__', name);
+                        path.basename = replaceAll(path.basename, '__example-structure__', name);
                     }))
                     .pipe(gulp.dest( itemPath ))
                     .on('end', function(){
