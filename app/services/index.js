@@ -1,7 +1,8 @@
 import { requireAll } from '../require-utils';
 
-let services = requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/)).map(function( module ){
+let modules = requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/));
+modules = modules.map(function( module ){
     return module.default;
 });
 
-export default services;
+export default modules;

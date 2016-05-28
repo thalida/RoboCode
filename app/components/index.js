@@ -1,2 +1,9 @@
 import { requireAll } from '../require-utils';
-requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/));
+
+let modules = requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/));
+modules = modules.map(function( module ){
+    return module.default;
+});
+
+export default modules;
+

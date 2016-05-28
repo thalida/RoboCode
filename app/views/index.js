@@ -1,7 +1,8 @@
 import { requireAll } from '../require-utils';
 
-let views = requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/)).map(function( module ){
+let modules = requireAll(require.context('./', true, /\.\/[\w\-\_]+\/index\.js$/));
+modules = modules.map(function( module ){
     return module.default;
 });
 
-export default views;
+export default modules;
