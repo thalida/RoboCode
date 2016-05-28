@@ -1,5 +1,5 @@
 export default {
-    templateUrl: require('./__example-structure__.html'),
+    template: require('./__example-structure__.html'),
     bindings: {
         data: '<'
     },

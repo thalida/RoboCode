@@ -2,12 +2,12 @@
 export default function(){
     return {
         restrict: 'E',
-        templateUrl: require('./__example-structure__.html'),
+        template: require('./__example-structure__.html'),
         scope: {},
         bindToController: {
             data: '<'
         },
-        controllerAs: 'ctrl',
+        controllerAs: '$ctrl',
         controller: class Controller {
             /*@ngInject*/
             constructor() {
